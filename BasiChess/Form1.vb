@@ -9,14 +9,30 @@
     ({"♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"}),
     ({"♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"})}
 
+    Dim btncollection As New Microsoft.VisualBasic.Collection()
 
     Public Sub ChangeText(button As Button)
-        button.Text = "Hello"
+
     End Sub
 
     ' Apply the values in gamegrid to all the buttons, changing their icon
-    Public Sub ChangeAllButtonText()
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim x As Integer
+        Dim y As Integer
+        x = 0
+        y = 0
 
+        For Each ctl In Me.Controls
+            If TypeOf ctl Is Button Then
+                If x > 7 Then
+                    x = 0
+                    y = y + 1
+                End If
+                ctl.Font = New Font("Microsoft Sans Serif", 56, FontStyle.Regular)
+                ctl.Text = gameGrid(y)(x)
+                x = x + 1
+            End If
+        Next
     End Sub
 
     Dim WasButtonClicked = False
@@ -28,11 +44,19 @@
     ' TODO: Make it so they only swap around if the rules of chess allow them to
     Public Sub ButtonOnClickEvent(sender)
         If WasButtonClicked = True Then
-            buttonClicked.Text = sender.Text
-            sender.Text = valueOfButtonClicked
-            WasButtonClicked = False
+            ' To take another piece
+            If buttonClicked.Text IsNot Nothing Then
+                buttonClicked.Text = Nothing
+                sender.Text = valueOfButtonClicked
+                WasButtonClicked = False
+                'To move a piece from one place to another
+            Else
+                buttonClicked.Text = sender.Text
+                sender.Text = valueOfButtonClicked
+                WasButtonClicked = False
+            End If
         Else
-            valueOfButtonClicked = sender.Text
+                valueOfButtonClicked = sender.Text
             buttonClicked = sender
             WasButtonClicked = True
         End If
