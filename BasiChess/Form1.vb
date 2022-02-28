@@ -89,7 +89,6 @@
 
     ' Moving of pieces in chess
     ' Runs whenever a button is clicked. When two buttons are clicked one takes the other
-    ' TODO: Make it so they only do this if the rules of chess allow them to
     Public Sub ButtonOnClickEvent(sender)
         Dim Coords As Integer()
         Dim CoordsReturned As Integer()()
@@ -116,19 +115,32 @@
         If WasButtonClicked = True Then
             ' To take another piece
             If buttonClicked.Text IsNot Nothing Then
-                buttonClicked.Text = Nothing
-                sender.Text = valueOfButtonClicked
-                WasButtonClicked = False
+                If sender.BackColor = Color.Red Then
+                    buttonClicked.Text = Nothing
+                    sender.Text = valueOfButtonClicked
+                    WasButtonClicked = False
+                    ' Make the background color of all buttons white
+                    For Each ctl In Me.Controls
+                        ctl.BackColor = Color.White
+                    Next
+                End If
                 'To move a piece from one place to another
             Else
-                buttonClicked.Text = sender.Text
-                sender.Text = valueOfButtonClicked
-                WasButtonClicked = False
+                If sender.BackColor = Color.Red Then
+                    buttonClicked.Text = sender.Text
+                    sender.Text = valueOfButtonClicked
+                    WasButtonClicked = False
+                    ' Make the background color of all buttons white
+                    For Each ctl In Me.Controls
+                        ctl.BackColor = Color.White
+                    Next
+                End If
             End If
         Else
             valueOfButtonClicked = sender.Text
             buttonClicked = sender
             WasButtonClicked = True
+            buttonClicked.BackColor = Color.Red
         End If
     End Sub
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click, Button2.Click, Button3.Click, Button4.Click, Button5.Click, Button6.Click, Button7.Click, Button8.Click, Button9.Click, Button10.Click, Button11.Click, Button12.Click, Button13.Click, Button14.Click, Button15.Click, Button16.Click, Button17.Click, Button18.Click, Button19.Click, Button20.Click, Button21.Click, Button22.Click, Button23.Click, Button24.Click, Button25.Click, Button26.Click, Button27.Click, Button28.Click, Button29.Click, Button30.Click, Button31.Click, Button32.Click, Button33.Click, Button34.Click, Button35.Click, Button36.Click, Button37.Click, Button38.Click, Button39.Click, Button40.Click, Button41.Click, Button42.Click, Button43.Click, Button44.Click, Button45.Click, Button46.Click, Button47.Click, Button48.Click, Button49.Click, Button50.Click, Button51.Click, Button52.Click, Button53.Click, Button54.Click, Button55.Click, Button56.Click, Button57.Click, Button58.Click, Button59.Click, Button60.Click, Button61.Click, Button62.Click, Button63.Click, Button64.Click
